@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEDxImScience - Dino Game</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="screen active">
+        <div class="loading-content">
+            <h1 class="loading-title">
+                <span class="tedx-text">TEDx</span><span class="science-text">ImScience</span>
+            </h1>
+            <div class="loading-animation">
+                <div class="spinner"></div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Screen -->
+    <div id="login-screen" class="screen">
+        <div class="login-container">
+            <h1 class="login-title">
+                <span class="tedx-text">TEDx</span><span class="science-text">ImScience</span>
+            </h1>
+            <p class="login-subtitle">Enter your details to start playing</p>
+            
+            <form id="login-form" class="login-form">
+                <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" name="fullName" required placeholder="Enter your full name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="class">Class</label>
+                    <input type="text" id="class" name="class" required placeholder="Enter your class">
+                </div>
+                
+                <div class="form-group">
+                    <label for="department">Department</label>
+                    <input type="text" id="department" name="department" required placeholder="Enter your department">
+                </div>
+                
+                <div class="form-group">
+                    <label for="semester">Semester</label>
+                    <input type="text" id="semester" name="semester" required placeholder="Enter your semester">
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required placeholder="Enter your phone number">
+                </div>
+                
+                <button type="submit" id="start-game-btn" class="btn btn-primary">Start Game</button>
+                <div class="loading-spinner" id="login-spinner"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-screen" class="screen">
+        <!-- Game Header -->
+        <div class="game-header">
+            <div class="player-info">
+                <span id="player-name">Player</span>
+            </div>
+            <div class="score-info">
+                <span class="score-label">Score:</span>
+                <span id="current-score">00000</span>
+            </div>
+            <div class="high-score-info">
+                <span class="score-label">HI:</span>
+                <span id="high-score">00000</span>
+            </div>
+        </div>
+
+        <!-- Game Canvas -->
+        <canvas id="game-canvas"></canvas>
+
+        <!-- Game Controls Info -->
+        <div class="controls-info">
+            <p>Press <kbd>SPACE</kbd> to Jump | <kbd>↓</kbd> to Duck | <kbd>ESC</kbd> to Pause</p>
+        </div>
+
+        <!-- Dark Mode Toggle -->
+        <button id="dark-mode-toggle" class="dark-mode-btn" title="Toggle Dark Mode">
+            <span class="sun-icon">☀️</span>
+            <span class="moon-icon">🌙</span>
+        </button>
+
+        <!-- Logout Button -->
+        <button id="logout-btn" class="btn btn-logout">Logout</button>
+    </div>
+
+    <!-- Game Over Modal -->
+    <div id="game-over-modal" class="modal">
+        <div class="modal-content">
+            <h2 class="game-over-title">Game Over!</h2>
+            <div class="game-over-stats">
+                <p class="final-score">Score: <span id="final-score">0</span></p>
+                <p class="high-score-display">Best Score: <span id="modal-high-score">0</span></p>
+                <p id="new-record" class="new-record">🎉 New High Score!</p>
+            </div>
+            <div class="modal-buttons">
+                <button id="restart-btn" class="btn btn-primary">Restart Game</button>
+                <button id="leaderboard-btn" class="btn btn-secondary">Leaderboard</button>
+                <button id="logout-game-over-btn" class="btn btn-logout">Logout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leaderboard Modal -->
+    <div id="leaderboard-modal" class="modal">
+        <div class="modal-content leaderboard-content">
+            <h2 class="leaderboard-title">🏆 Top Players</h2>
+            <div id="leaderboard-list" class="leaderboard-list">
+                <div class="loading-spinner"></div>
+            </div>
+            <button id="close-leaderboard-btn" class="btn btn-secondary">Close</button>
+        </div>
+    </div>
+
+    <!-- Pause Modal -->
+    <div id="pause-modal" class="modal">
+        <div class="modal-content">
+            <h2>Game Paused</h2>
+            <p>Press <kbd>ESC</kbd> or click Resume to continue</p>
+            <button id="resume-btn" class="btn btn-primary">Resume</button>
+        </div>
+    </div>
+
+    <!-- Firebase SDK v9 -->
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module" src="auth.js"></script>
+    <script type="module" src="game.js"></script>
+    <script type="module" src="main.js"></script>
+</body>
+</html>

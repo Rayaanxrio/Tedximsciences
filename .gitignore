@@ -1,0 +1,55 @@
+# Firebase configuration (contains sensitive API keys)
+# firebase-config.js
+
+# Environment variables
+.env
+.env.local
+.env.production
+
+# Dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build outputs
+dist/
+build/
+
+# Firebase
+.firebase/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+firebase-config.js
+
+# Temporary files
+*.tmp
+*.temp
+
+# MARKDOWN files
+FIRESTORE_RULES_UPDATED.md
+SECURITY_PLAN.md
+SECURITY_QUICK_REFERENCE.md
+SECURITY_IMPLEMENTATION_SUMMARY.md
+PROJECT_SUMMARY.md
+QUICK_REFERENCE.md
+CHANGELOG.md
+SETUP_GUIDE.md
+ARCHITECTURE.md

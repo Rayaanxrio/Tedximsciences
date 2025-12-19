@@ -1,0 +1,23 @@
+{
+  "name": "tedximscience-game",
+  "version": "1.0.0",
+  "description": "TEDxImScience Dino-style web game with Firebase integration",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server -p 8000 -c-1",
+    "dev": "npx http-server -p 8000 -c-1 -o",
+    "deploy": "firebase deploy"
+  },
+  "keywords": [
+    "tedx",
+    "game",
+    "firebase",
+    "chrome-dino",
+    "web-game"
+  ],
+  "author": "TEDxImScience",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
