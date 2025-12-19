@@ -102,45 +102,87 @@ function setupEventListeners() {
     document.addEventListener('touchmove', handleTouchMove, { passive: false });
     document.addEventListener('touchend', handleTouchEnd, { passive: false });
 
-    // Game over modal buttons
-    document.getElementById('restart-btn').addEventListener('click', restartGame);
-    document.getElementById('leaderboard-btn').addEventListener('click', showLeaderboard);
-    document.getElementById('logout-game-over-btn').addEventListener('click', handleLogout);
-
-    // Leaderboard modal
-    document.getElementById('close-leaderboard-btn').addEventListener('click', closeLeaderboard);
-
-    // Pause modal
-    document.getElementById('resume-btn').addEventListener('click', handleResume);
-
-    // Logout button
-    document.getElementById('logout-btn').addEventListener('click', handleLogout);
+    // Game over modal buttons - add both click and touchend for mobile support
+    const restartBtn = document.getElementById('restart-btn');
+    const leaderboardBtn = document.getElementById('leaderboard-btn');
+    const logoutGameOverBtn = document.getElementById('logout-game-over-btn');
+    const closeLeaderboardBtn = document.getElementById('close-leaderboard-btn');
+    const resumeBtn = document.getElementById('resume-btn');
+    const logoutBtn = document.getElementById('logout-btn');
+    
+    restartBtn.addEventListener('click', handleButtonClick(restartGame));
+    restartBtn.addEventListener('touchend', handleButtonTouch(restartGame));
+    
+    leaderboardBtn.addEventListener('click', handleButtonClick(showLeaderboard));
+    leaderboardBtn.addEventListener('touchend', handleButtonTouch(showLeaderboard));
+    
+    logoutGameOverBtn.addEventListener('click', handleButtonClick(handleLogout));
+    logoutGameOverBtn.addEventListener('touchend', handleButtonTouch(handleLogout));
+    
+    closeLeaderboardBtn.addEventListener('click', handleButtonClick(closeLeaderboard));
+    closeLeaderboardBtn.addEventListener('touchend', handleButtonTouch(closeLeaderboard));
+    
+    resumeBtn.addEventListener('click', handleButtonClick(handleResume));
+    resumeBtn.addEventListener('touchend', handleButtonTouch(handleResume));
+    
+    logoutBtn.addEventListener('click', handleButtonClick(handleLogout));
+    logoutBtn.addEventListener('touchend', handleButtonTouch(handleLogout));
 
     // Dark mode toggle
     darkModeToggle.addEventListener('click', toggleDarkMode);
+    darkModeToggle.addEventListener('touchend', handleButtonTouch(toggleDarkMode));
 
     // Game events
     window.addEventListener('scoreUpdate', updateScoreDisplay);
     window.addEventListener('gameOver', handleGameOver);
 
-    // Click outside modals to close
+    // Click outside modals to close - prevent on mobile to avoid accidental closes
     gameOverModal.addEventListener('click', (e) => {
-        if (e.target === gameOverModal) {
+        if (e.target === gameOverModal && !isMobileDevice()) {
             gameOverModal.classList.remove('active');
         }
     });
 
     leaderboardModal.addEventListener('click', (e) => {
-        if (e.target === leaderboardModal) {
+        if (e.target === leaderboardModal && !isMobileDevice()) {
             closeLeaderboard();
         }
     });
 
     pauseModal.addEventListener('click', (e) => {
-        if (e.target === pauseModal) {
+        if (e.target === pauseModal && !isMobileDevice()) {
             handleResume();
         }
     });
+}
+
+/**
+ * Check if device is mobile
+ */
+function isMobileDevice() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+}
+
+/**
+ * Handle button click events
+ */
+function handleButtonClick(callback) {
+    return function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        callback();
+    };
+}
+
+/**
+ * Handle button touch events for mobile
+ */
+function handleButtonTouch(callback) {
+    return function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        callback();
+    };
 }
 
 /**

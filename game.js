@@ -23,6 +23,20 @@ const CONFIG = {
     MAX_POSSIBLE_GAP: 300    // Tighter max (was 350)
 };
 
+// Mobile detection and scaling
+function isMobileDevice() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
+}
+
+function getScaleFactor() {
+    if (window.innerWidth <= 480) {
+        return 0.7; // Smaller elements on small phones
+    } else if (window.innerWidth <= 768) {
+        return 0.85; // Medium size on tablets
+    }
+    return 1; // Full size on desktop
+}
+
 // Game state
 let gameState = {
     isRunning: false,
@@ -41,17 +55,23 @@ let gameState = {
 let canvas;
 let ctx;
 
-// Player object
+// Player object (base sizes, will be scaled for mobile)
+const BASE_PLAYER_SIZE = {
+    width: 50,
+    height: 50,
+    duckHeight: 25
+};
+
 const player = {
     x: CONFIG.PLAYER_X,
     y: 0,
-    width: 50,
-    height: 50,
+    width: BASE_PLAYER_SIZE.width,
+    height: BASE_PLAYER_SIZE.height,
     velocityY: 0,
     isJumping: false,
     isDucking: false,
-    normalHeight: 50,
-    duckHeight: 30
+    normalHeight: BASE_PLAYER_SIZE.height,
+    duckHeight: BASE_PLAYER_SIZE.duckHeight
 };
 
 // Obstacle types - TEDxImScience letters in sequence
@@ -117,6 +137,13 @@ function resizeCanvas() {
     // Set canvas to full width and available height
     canvas.width = window.innerWidth;
     canvas.height = availableHeight;
+
+    // Apply mobile scaling to player size
+    const scale = getScaleFactor();
+    player.width = BASE_PLAYER_SIZE.width * scale;
+    player.height = BASE_PLAYER_SIZE.height * scale;
+    player.normalHeight = BASE_PLAYER_SIZE.height * scale;
+    player.duckHeight = BASE_PLAYER_SIZE.duckHeight * scale;
 
     // Update player position
     if (player.y > 0) {
@@ -321,23 +348,27 @@ function generateObstacle() {
     }
     
     let yPosition;
+    const scale = getScaleFactor();
+    const scaledWidth = obstacleType.width * scale;
+    const scaledHeight = obstacleType.height * scale;
+    
     if (obstacleType.flying) {
         // Flying obstacles at player head height - MUST duck to avoid!
         const flyingHeights = [
-            canvas.height - CONFIG.GROUND_HEIGHT - 65,  // Head height (requires duck)
-            canvas.height - CONFIG.GROUND_HEIGHT - 55,  // Slightly lower (requires duck)
+            canvas.height - CONFIG.GROUND_HEIGHT - (65 * scale),  // Head height (requires duck)
+            canvas.height - CONFIG.GROUND_HEIGHT - (55 * scale),  // Slightly lower (requires duck)
         ];
         yPosition = flyingHeights[Math.floor(Math.random() * flyingHeights.length)];
     } else {
         // Ground obstacles
-        yPosition = canvas.height - CONFIG.GROUND_HEIGHT - obstacleType.height;
+        yPosition = canvas.height - CONFIG.GROUND_HEIGHT - scaledHeight;
     }
     
     const obstacle = {
         x: canvas.width,
         y: yPosition,
-        width: obstacleType.width,
-        height: obstacleType.height,
+        width: scaledWidth,
+        height: scaledHeight,
         colorType: obstacleType.colorType,
         letter: obstacleType.letter,
         flying: obstacleType.flying,
@@ -357,20 +388,20 @@ function generateObstacle() {
             if (obstacleType.flying) {
                 // Same type of flying obstacle at same or different height
                 const flyingHeights = [
-                    canvas.height - CONFIG.GROUND_HEIGHT - 65,
-                    canvas.height - CONFIG.GROUND_HEIGHT - 55,
+                    canvas.height - CONFIG.GROUND_HEIGHT - (65 * scale),
+                    canvas.height - CONFIG.GROUND_HEIGHT - (55 * scale),
                 ];
                 secondY = flyingHeights[Math.floor(Math.random() * flyingHeights.length)];
             } else {
                 // Same height for ground obstacles
-                secondY = canvas.height - CONFIG.GROUND_HEIGHT - obstacleType.height;
+                secondY = canvas.height - CONFIG.GROUND_HEIGHT - scaledHeight;
             }
             
             const secondObstacle = {
                 x: canvas.width + 60, // Even tighter gap between obstacles (was 70)
                 y: secondY,
-                width: obstacleType.width,
-                height: obstacleType.height,
+                width: scaledWidth,
+                height: scaledHeight,
                 colorType: obstacleType.colorType,
                 letter: obstacleType.letter,
                 flying: obstacleType.flying,
