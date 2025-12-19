@@ -37,6 +37,14 @@ function getScaleFactor() {
     return 1; // Full size on desktop
 }
 
+function getGroundHeight() {
+    if (isMobileDevice()) {
+        // Thinner ground on mobile for more play space
+        return window.innerWidth <= 480 ? 40 : 50;
+    }
+    return 80; // Default desktop ground height
+}
+
 // Game state
 let gameState = {
     isRunning: false,
@@ -137,6 +145,9 @@ function resizeCanvas() {
     // Set canvas to full width and available height
     canvas.width = window.innerWidth;
     canvas.height = availableHeight;
+
+    // Update ground height for current screen size
+    CONFIG.GROUND_HEIGHT = getGroundHeight();
 
     // Apply mobile scaling to player size
     const scale = getScaleFactor();

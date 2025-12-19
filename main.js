@@ -84,6 +84,9 @@ async function init() {
 
     // Load dark mode preference
     loadDarkModePreference();
+
+    // Setup orientation change listener
+    setupOrientationListener();
 }
 
 /**
@@ -528,6 +531,40 @@ function showScreen(screenName) {
         case 'game':
             gameScreen.classList.add('active');
             break;
+    }
+}
+
+/**
+ * Setup orientation change listener for mobile
+ */
+function setupOrientationListener() {
+    // Check orientation on load
+    checkOrientation();
+    
+    // Listen for orientation changes
+    window.addEventListener('orientationchange', checkOrientation);
+    window.addEventListener('resize', checkOrientation);
+}
+
+/**
+ * Check device orientation and show/hide rotate prompt
+ */
+function checkOrientation() {
+    const rotatePrompt = document.getElementById('rotate-prompt');
+    
+    if (!rotatePrompt) return;
+    
+    // Only apply to mobile devices
+    if (isMobileDevice()) {
+        const isPortrait = window.innerHeight > window.innerWidth;
+        
+        if (isPortrait) {
+            rotatePrompt.style.display = 'flex';
+        } else {
+            rotatePrompt.style.display = 'none';
+        }
+    } else {
+        rotatePrompt.style.display = 'none';
     }
 }
 
