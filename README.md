@@ -2,7 +2,7 @@
 
 A Chrome Dino-style web game themed around TEDxImScience with Firebase authentication and leaderboard functionality.
 
-## 🎯 Features
+## Features
 
 - **TEDx-Themed Gameplay**: Jump and duck with a TEDx "X" logo as the player character
 - **Letter Obstacles**: Avoid letters from "TEDxImScience" spelled out as obstacles
@@ -16,7 +16,7 @@ A Chrome Dino-style web game themed around TEDxImScience with Firebase authentic
 - **Fast-Paced Action**: More frequent obstacles for engaging gameplay
 - **Added security**: Disabled dev tools / Console
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -125,7 +125,7 @@ Then open http://localhost:8000 in your browser.
 2. Right-click `index.html`
 3. Select "Open with Live Server"
 
-## 🎮 How to Play
+## How to Play
 
 1. **Loading Screen**: Wait for the game to load
 2. **Login**: Enter your details (Name, Class, Department, Semester, Phone)
@@ -135,7 +135,7 @@ Then open http://localhost:8000 in your browser.
    - **ESC** = Pause
 4. **Objective**: Avoid obstacles and score as high as possible!
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 tedx/
@@ -148,7 +148,7 @@ tedx/
 └── README.md            # Documentation
 ```
 
-## 🎨 Customization
+## Customization
 
 ### Colors
 
@@ -253,7 +253,7 @@ firebase deploy
 1. Drag and drop your project folder to [Netlify Drop](https://app.netlify.com/drop)
 2. Or connect your GitHub repository for automatic deployments
 
-## 📊 Database Structure
+## Database Structure
 
 ### Users Collection
 
@@ -295,7 +295,7 @@ users/{userId}
   - 30-minute session timeout
 ```
 
-## 🎯 Future Enhancements
+##  Future Enhancements
 
 - [ ] Add sound effects (jump, collision, score)
 - [ ] Add background music with mute toggle
@@ -307,13 +307,13 @@ users/{userId}
 - [ ] Add multiplayer mode
 
 
-## 🙏 Acknowledgments
+##  Acknowledgments
 
 - Inspired by the Chrome Dino game
 - TEDx branding and color scheme
 - Firebase for backend infrastructure
 
-## 📞 Support
+##  Support
 
 If you encounter any issues or have questions:
 
@@ -321,9 +321,9 @@ If you encounter any issues or have questions:
 2. Review Firebase Console for errors
 4. Ensure Firebase configuration is correct
 
-## 🎮 Enjoy Playing!
+##  Enjoy Playing!
 
-Built with ❤️ for TEDxImScience
+
 
 ---
 
